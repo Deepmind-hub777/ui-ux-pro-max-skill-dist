@@ -8,8 +8,23 @@ Upstream: <https://github.com/nextlevelbuilder/ui-ux-pro-max-skill>
 License: MIT — see `LICENSE` (Copyright © 2024 Next Level Builder)
 
 This repository is a redistribution, not the upstream project. Issues about the
-underlying data or scripts belong upstream. No modifications have been made to the
-skill content beyond dropping compiled `__pycache__` artifacts.
+underlying data or scripts belong upstream.
+
+## Changes made to this copy
+
+Three, all mechanical:
+
+1. Compiled `__pycache__` / `*.pyc` artifacts removed.
+2. `SKILL.md` — 11 occurrences of an install-specific absolute path
+   (`/home/user/.doubao/.../ui-ux-pro-max/scripts/search.py`) replaced with the
+   neutral placeholder `<skill-dir>/scripts/search.py`, plus one sentence defining
+   `<skill-dir>`. The upstream contract is that documented commands resolve from the
+   skill's own directory; the hardcoded path was an artifact of local installation,
+   and it made the file unusable on any other machine.
+3. Added `LICENSE`, this `README.md`, and `THIRD_PARTY_NOTICES.md` — none of which
+   ship upstream.
+
+Skill content, data, and scripts are otherwise unchanged.
 
 ---
 
@@ -42,11 +57,12 @@ skill directories can use it.
 
 **Claude Code / Claude Cowork**
 ```bash
+git clone https://github.com/Deepmind-hub777/ui-ux-pro-max-skill-dist.git
 mkdir -p .claude/skills
-cp -r ui-ux-pro-max .claude/skills/
+cp -r ui-ux-pro-max-skill-dist .claude/skills/ui-ux-pro-max
 ```
 The agent reads `.claude/skills/ui-ux-pro-max/SKILL.md` and calls
-`scripts/search.py` by absolute path.
+`scripts/search.py` at the path of that installed copy.
 
 **Other agents (Cursor, Codex, custom harnesses)**
 Point the agent's skill root at this directory. Two requirements:
